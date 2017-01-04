@@ -23,6 +23,7 @@ setUp(){
         rm -R $TEMP/self/.git
         rm -R $TEMP/self/test/stubs
         rm -R $TEMP/self/X/
+        rm -R $TEMP/self/shunit2/
 	set -f
 }
 
@@ -31,7 +32,7 @@ testSelf(){
         . misspell_fixer.sh -s -D $TEMP/self/ > $TEMP/self/spelling.txt
         echo "*** those errors found: ***"
         cat $TEMP/self/spelling.txt
-	assertTrue $(cat $TEMP/self/spelling.txt | grep "^+" | wc -l) 0
+	assertEqual "found some spelling-errors. :-( " $(cat $TEMP/self/spelling.txt | grep "^+" | wc -l) 0
 }
 
 
