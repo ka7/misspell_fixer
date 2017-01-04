@@ -28,10 +28,8 @@ setUp(){
 # run over own code, assume zero errors.
 testSelf(){
         ./misspell-fixer.sh -s -D $TEMP/self/ > $TEMP/self/spelling.txt
-        if [[ $(wc -l $TEMP/self/spelling.txt) <> 0 ]]
-        then
-           cat $TEMP/self/spelling.txt
-        fi
+        echo "*** those errors found: ***"
+        cat $TEMP/self/spelling.txt
 	assertTrue $(cat $TEMP/self/spelling.txt | grep "^+" | wc -l) 0
 }
 
