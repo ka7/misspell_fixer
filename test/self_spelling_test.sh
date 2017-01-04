@@ -32,7 +32,7 @@ testSelf(){
         . misspell_fixer.sh -s -D $TEMP/self/ > $TEMP/self/spelling.txt
         echo "*** those errors found: ***"
         cat $TEMP/self/spelling.txt
-	assertEqual "found some spelling-errors. :-( " $(cat $TEMP/self/spelling.txt | grep "^+" | wc -l) 0
+	assertEquals "found some spelling-errors. :-( " $(cat $TEMP/self/spelling.txt | grep "^+" | wc -l) 0
 }
 
 
