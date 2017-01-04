@@ -2,4 +2,6 @@ language: bash
 sudo: required
 
 before_script: make prepare_environment
-script: make test
+script: 
+	- make test
+	- make self_test
