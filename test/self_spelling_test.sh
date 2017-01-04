@@ -23,7 +23,7 @@ setUp(){
         rm -R $TEMP/self/.git
         rm -R $TEMP/self/test/stubs
         rm -R $TEMP/self/X/
-        rm -R $TEMP/self/shunit2/
+        rm -Rf $TEMP/self/shunit2/
 	set -f
 }
 
