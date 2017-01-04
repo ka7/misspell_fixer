@@ -16,11 +16,13 @@ oneTimeTearDown(){
 setUp(){
 	set +f
 	cp -a * $TEMP/self/
+        rm -R $TEMP/self/dict/*.dict
         rm $TEMP/self/*.sed
-        rm $TEMP/self/test/expected/
-        rm -R $TEMP/self/test/dict/*.dict
+        rm -R $TEMP/self/test/expected/
+        rm $TEMP/self/test/expected*
         rm -R $TEMP/self/.git
         rm -R $TEMP/self/test/stubs
+        rm -R $TEMP/self/X/
 	set -f
 }
 
