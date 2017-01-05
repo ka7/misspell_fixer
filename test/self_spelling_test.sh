@@ -3,6 +3,7 @@
 export TEMP=/tmp/misspell_fixer_test/$$
 export RUN=". misspell_fixer.sh"
 export LC_ALL=C
+export SPELLING_ERR="$TEMP/self/spelling.txt"
 
 oneTimeSetUp(){
 	mkdir -p $TEMP $TEMP/self/
@@ -12,7 +13,7 @@ oneTimeTearDown(){
 	rm -rf $TEMP
 }
 
-# copy code, but remove test-data and dict
+# copy code, but remove data which is not needed or we know it contains errors. ( like the dict )
 setUp(){
 	set +f
 	cp -a * $TEMP/self/
@@ -29,10 +30,20 @@ setUp(){
 
 # run over own code, assume zero errors.
 testSelf(){
-        . misspell_fixer.sh -s -D $TEMP/self/ > $TEMP/self/spelling.txt
-        echo "*** those errors found: ***"
-        cat $TEMP/self/spelling.txt
-	assertEquals "found some spelling-errors. :-( " $(cat $TEMP/self/spelling.txt | grep "^+" | wc -l) 0
+        $RUN -s -D $TEMP/self/ > $SPELLING_ERR
+        count=$(cat $SPELLING_ERR | grep "^+" | wc -l)
+        if [[ $count -eq 0 ]]
+        then
+          echo "*** * * * * * * * * * * * * * * * * * * ***"
+          echo "*** hurray, no spelling errors detected ***"
+          echo "*** * * * * * * * * * * * * * * * * * * ***"
+        else
+          echo "*** * * * * * * * * * * * * * * * * * * ***"
+          echo "*** those spelling errors found...      ***"
+          echo "*** * * * * * * * * * * * * * * * * * * ***"
+          cat $SPELLING_ERR
+        fi
+	assertEquals "found some spelling-errors. :-( " $count 0
 }
 
 
